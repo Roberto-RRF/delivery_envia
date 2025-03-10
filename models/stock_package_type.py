@@ -27,12 +27,12 @@ class StockPackageType(models.Model):
             else:
                 package.shipper_package_code = package.shipper_package_code
 
-    @api.constrains('packaging_length', 'width', 'height', 'package_carrier_type')
-    def _check_envia_required_value(self):
-        for record in self:
-            if record.package_carrier_type == 'envia' and \
-                    any(dim <= 0 for dim in (record.packaging_length, record.width, record.height)):
-                raise ValidationError(_('Length, Width, and Height is necessary for a Envia Package.'))
+    # @api.constrains('packaging_length', 'width', 'height', 'package_carrier_type')
+    # def _check_envia_required_value(self):
+    #     for record in self:
+    #         if record.package_carrier_type == 'envia' and \
+    #                 any(dim <= 0 for dim in (record.packaging_length, record.width, record.height)):
+    #             raise ValidationError(_('Length, Width, and Height is necessary for a Envia Package.'))
 
     @api.depends('package_carrier_type')
     def _compute_length_uom_name(self):
